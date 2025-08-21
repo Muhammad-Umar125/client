@@ -12,8 +12,8 @@ const SlideBar = ({ sideBarOpen, setSideBarOpen }) => {
   const { signOut } = useClerk()
 
   return (
-    <div className={`w-60 xl:w-72 flex flex-col justify-between  max-sm:absolute top-0 bottom-0 z-20 ${sideBarOpen ? `translate-x-0` : `max-sm:-translate-x-full `} transition-all duration-300 ease-in-out`} >
-      <div className=''>
+    <div className={`w-60 xl:w-72 flex flex-col justify-between  bg-white max-sm:absolute top-0 bottom-0 z-20 ${sideBarOpen ? `translate-x-0` : `max-sm:-translate-x-full `} transition-all duration-300 ease-in-out`} >
+      <div className='z-120'>
         <img onClick={() => navigate('/')} className='w-36 mx-6 my-5 cursor-pointer' src={assets.logo} alt="" />
         <hr className='border-gray-300' />
         <MenuItems setSiteBarOpen={setSideBarOpen} />
