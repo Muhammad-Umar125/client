@@ -1,6 +1,8 @@
-import { ArrowLeft, TextIcon } from 'lucide-react'
+import { ArrowLeft, Sparkle, Star, TextIcon, Upload } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
+import Loading from './Loading'
 
 const StoryModal = ({ setShowModal, fetchStories }) => {
 
@@ -35,32 +37,45 @@ const StoryModal = ({ setShowModal, fetchStories }) => {
                     <span className='w-10'></span>
                 </div>
                 <div className='rounded-lg h-96 flex items-center justify-center relative' style={{ backgroundColor: background }}>
-                    { mode==="text"&&(
-                        <textarea className='bg-transparent text-white w-full h-full p-6 text-lg resize-none focus:outline-none' placeholder="What's on your mnid" onChange={(e)=>setText(e.target.value)} value ={text}/>
+                    {mode === "text" && (
+                        <textarea className='bg-transparent text-white w-full h-full p-6 text-lg resize-none focus:outline-none' placeholder="What's on your mnid" onChange={(e) => setText(e.target.value)} value={text} />
                     )}
                     {
-                        mode === 'media '&& previewUrl &&( 
-                            media.type.startsWith('image')?(
+                        mode === 'media' && previewUrl && (
+                            media.type.startsWith('image') ? (
                                 <img src={previewUrl} alt="" className='object-contain max-h-full' />
-                            ):(
-                                <video src={previewUrl} className='object-contain max-h-full'/>
+                            ) : (
+                                <video src={previewUrl} className='object-contain max-h-full' />
                             )
                         )
                     }
                 </div>
 
                 <div className='flex mt-4 gap-2'>
-                    {bgColors.map((color)=>(
-                        <button key={color} className='w-6 h-6 rounded-full ring ' onClick={()=>setBackground(color)} style={{backgroundColor:color}}/>
+                    {bgColors.map((color) => (
+                        <button key={color} className='w-6 h-6 rounded-full ring ' onClick={() => setBackground(color)} style={{ backgroundColor: color }} />
                     ))}
                 </div>
-                <div className='gap-2 mt-4 flex'>
-                    <button className='flex justify-center bg-white w-full rounded text-black'>
-                        <TextIcon  />Text
+                <div className='flex gap-2 mt-4 '>
+                    <button onClick={() => { setMode('text'); setMedia(null); setPreviewUrl(null) }} className={`flex-1 flex ${mode === 'text' ? "bg-white text-black" : "bg-zinc-800"} justify-center rounded items-center cursor-pointer gap-2 p-2`}>
+                        <TextIcon />Text
                     </button>
-
+                    <label className={`flex-1 flex rounded  gap-2 items-center p-2 justify-center cursor-pointer ${mode === "media" ? "bg-white text-black" : "bg-zinc-800"}`}>
+                        <input onChange={(e) => { handleMediaUpload(e); setMode('media'); }} type="file" accept='image/*, video/*' className='hidden' />
+                        <Upload />Photo/Video
+                    </label>
                 </div>
+                <div>
+                    <button onClick={() => toast.promise(handleCreateStory(), {
+                        loading: 'Saving...',
+                        success: <p>Story Added</p>,
+                        error: e => <p>{e.message}</p>,
+
+                    })} className="flex items-center justify-center gap-2 text-white py-3 mt-4 w-full rounded bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-688 hover:to-purple-780 active:scale-95 transition cursor-pointer">
+                    <Sparkle />
+                    Create Story</button>
             </div>
+        </div>
         </div >
 
     )
