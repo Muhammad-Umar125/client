@@ -7,6 +7,28 @@ const StoriesViewer = ({ viewStory, setViewStory }) => {
 
     useEffect(()=>{ 
         let timer,progressIneterval;
+        
+        if(viewStory && viewStory.media_type !== 'video'){
+            setProgress(0)
+            const duration = 10000
+            const setTime = 100  
+            let elapsed = 0
+
+            progressIneterval = setInterval(() => {
+                elapsed += setTime  
+                setProgress((elapsed/duration)*100)
+            }, setTime);
+
+            // close story after duration(10sec)
+            timer = setTimeout(() => {
+                setViewStory(null)
+            }, duration);
+        }
+        return ()=>{
+            clearTimeout(timer)
+            clearInterval(progressIneterval)
+        }
+
     },[viewStory,setViewStory])
 
 if(!viewStory) return null
@@ -37,7 +59,7 @@ if(!viewStory) return null
 
             {/* progress bar */}
             <div className='absolute top-0 left-0 w-full h-1 bg-gray-700'>
-                <div className='h-full bg-white transition-all duration-100 linear' style={{ width: '50%' }}>
+                <div className='h-full bg-white transition-all duration-100 linear' style={{ width: `${progress}%` }}>
                 </div>
             </div>
             {/* user info top left */}
