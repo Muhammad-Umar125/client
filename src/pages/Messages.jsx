@@ -16,7 +16,7 @@ const Messages = () => {
 
 
   return (
-    <div className=' pl-64 pt-6 bg-slate-50 h-20'>
+    <div className=' pl-27 pt-6 bg-slate-50 '>
       <div className='flex flex-col gap-3 ' >
         <h1 className='font-bold text-3xl'>Messages</h1>
         <p className='text-slate-600'>Talk to your friends and family</p>
