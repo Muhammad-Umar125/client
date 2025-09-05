@@ -6,14 +6,14 @@ import UserProfileInfo from '../components/UserProfileInfo'
 import { useState, useEffect } from 'react'
 import Feed from './Feed'
 import PostCard from '../components/PostCard'
-
+import moment from 'moment'
 
 const Profile = () => {
   const { profileId } = useParams()
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
   const [activeTab, setActiveTab] = useState('posts')
-  const [showEdit, setShowEdit] = useState('false')
+  const [showEdit, setShowEdit] = useState(false)
 
   const fetchUser = async () => {
     setUser(dummyUserData)
@@ -59,9 +59,9 @@ const Profile = () => {
                 <>
                 {
                   post.image_urls.map((image,index)=>(
-                  <Link>
-                  <img src={image} key={index} className='-64 aspect-video object-cover' alt="" />
-                  <p>Posted</p>
+                  <Link target='_blank' to={image} key={index} className='relative group'>
+                  <img src={image} key={index} className='w-64 aspect-video object-cover' alt="" />
+                  <p className='absolute bottom-0 right-0 text-xs p-1 px-3 backdrop-blur-xl text-white opacity-0 group-hover:opacity-100 transition duration-300' >Posted{moment(post.createdAt).fromNow()}</p>
                   </Link>
                   )
                   )
@@ -72,6 +72,8 @@ const Profile = () => {
           </div>
         )}
       </div>
+      {/* edit profile modal */}
+      {showEdit && <p>show profile edit</p>}
     </div>
   ) : <Loading />
 }
