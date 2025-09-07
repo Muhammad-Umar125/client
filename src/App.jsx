@@ -27,7 +27,7 @@ const App = () => {
           <Route path='discover' element={<Discover />} />
           <Route path='profile' element={<Profile />} />
           <Route path='profile/:ProfileId' element={<Profile />} />
-          <Route path='createPost' element={<CreatePost />} />
+          <Route path='create-post' element={<CreatePost />} />
         </Route>
       </Routes>
     </>

@@ -43,7 +43,7 @@ const PostCard = ({ post }) => {
       {/* Actions */}
       <div className='flex items-center gap-4 text-gray-600 text-sm pt-2 border-t border-gray-300'>
         <div className='flex items-center gap-1'>
-          <Heart className={`w-4 h-4 cursor-pointer ${likes.includes(currentUser._id) && 'text-red-500 fill-red-500'}`} onClick={handleLike()} />
+          <Heart className={`w-4 h-4 cursor-pointer ${likes.includes(currentUser._id) && 'text-red-500 fill-red-500'}`} onClick={handleLike} />
           <span>{likes.length}</span>
         </div>
         <div className='flex items-center gap-1'>
